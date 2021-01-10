@@ -1,0 +1,6 @@
+-xc++
+-std=c++20
+-I/usr/include/c++/9
+-I/usr/include/x86_64-linux-gnu/c++/9
+-I/root/git/rocksdb
+-I/root/git/rocksdb/include
