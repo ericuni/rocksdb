@@ -8,6 +8,9 @@ cc_library(
   name = 'slice',
   hdrs = 'rocksdb/slice.h',
   srcs = 'slice.cc',
+  deps = [
+    '//table:cleanable',
+  ]
 )
 
 cc_test(
@@ -15,6 +18,7 @@ cc_test(
   srcs = 'slice_test.cc',
   deps = [
     ':slice',
+    '//port:stack_trace',
   ]
 )
 
@@ -24,10 +28,11 @@ cc_library(
   srcs = 'coding.cc',
 )
 
-## cc_test(
-##   name = 'coding_test',
-##   srcs = 'coding_test.cc',
-##   deps = [
-##     ':coding',
-##   ]
-## )
+cc_test(
+  name = 'coding_test',
+  srcs = 'coding_test.cc',
+  deps = [
+    ':coding',
+    ':slice',
+  ]
+)
