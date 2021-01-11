@@ -93,3 +93,6 @@ clang-format-diff.py
 
 fuzz/proto/gen/
 fuzz/crash-*
+
+blade-bin
+build64_release

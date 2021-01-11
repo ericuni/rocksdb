@@ -32,6 +32,7 @@ class Cleanable {
   // not abstract and therefore clients should not override it.
   typedef void (*CleanupFunction)(void* arg1, void* arg2);
   void RegisterCleanup(CleanupFunction function, void* arg1, void* arg2);
+  // after delegate is called, cleanup_.function and cleanup_.next are both set to be nullptr
   void DelegateCleanupsTo(Cleanable* other);
   // DoCleanup and also resets the pointers for reuse
   inline void Reset() {

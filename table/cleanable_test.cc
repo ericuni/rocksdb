@@ -4,6 +4,7 @@
 //  (found in the LICENSE.Apache file in the root directory).
 
 #include <functional>
+#include <glog/logging.h>
 
 #include "port/port.h"
 #include "port/stack_trace.h"
@@ -133,6 +134,7 @@ TEST_F(CleanableTest, Delegation) {
     ASSERT_EQ(1, res);
   }
   // ~Cleanable
+  // execution order: n5, n3, n2
   ASSERT_EQ(30, res);
 
   res = 1;
@@ -239,13 +241,13 @@ TEST_F(CleanableTest, PinnableSlice) {
       c1.RegisterCleanup(Multiplier, &res, &n2);  // res = 2;
       value.PinSlice(slice, &c1);
     }
-    // ~Cleanable
+    // ~Cleanable of c1, but empty, as has been delegated to value
     ASSERT_EQ(1, res);  // cleanups must have be delegated to value
     std::string str;
     str.assign(value.data(), value.size());
     ASSERT_EQ(const_str, str);
   }
-  // ~Cleanable
+  // ~Cleanable of value
   ASSERT_EQ(2, res);
 
   {
